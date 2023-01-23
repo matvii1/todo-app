@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import { useMemo } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { FilterType } from '../types/filterType';
+import { FilterStatus } from '../types/FilterStatus';
 import { Todo } from '../types/Todo';
 import { getSearchWith } from '../utils/getSearchWith';
 
@@ -21,14 +21,14 @@ export const Footer = ({
   const itemsLeft = todos.filter((todo: Todo) => !todo.completed).length;
 
   const filterType = useMemo(() => {
-    return searchParams.get('filter') || FilterType.All;
+    return searchParams.get('filter') || FilterStatus.ALL;
   }, [searchParams]);
 
   const clearCompletedHandler = () => {
     setTodos(todos.filter(el => !el.completed));
   };
 
-  const handleOnClick = (type: FilterType) => {
+  const handleOnClick = (type: string) => {
     setSearchParams(
       getSearchWith(searchParams, {
         filter: type,
@@ -47,9 +47,9 @@ export const Footer = ({
           type="button"
           data-cy="FilterLinkAll"
           className={classNames('filter__link', {
-            selected: filterType === FilterType.All,
+            selected: filterType === FilterStatus.ALL,
           })}
-          onClick={() => handleOnClick(FilterType.All)}
+          onClick={() => handleOnClick(FilterStatus.ALL)}
         >
           All
         </button>
@@ -58,9 +58,9 @@ export const Footer = ({
           type="button"
           data-cy="FilterLinkActive"
           className={classNames('filter__link', {
-            selected: filterType === FilterType.Active,
+            selected: filterType === FilterStatus.ACTIVE,
           })}
-          onClick={() => handleOnClick(FilterType.Active)}
+          onClick={() => handleOnClick(FilterStatus.ACTIVE)}
         >
           Active
         </button>
@@ -68,9 +68,9 @@ export const Footer = ({
           type="button"
           data-cy="FilterLinkCompleted"
           className={classNames('filter__link', {
-            selected: filterType === FilterType.Completed,
+            selected: filterType === FilterStatus.COMPLETED,
           })}
-          onClick={() => handleOnClick(FilterType.Completed)}
+          onClick={() => handleOnClick(FilterStatus.COMPLETED)}
         >
           Completed
         </button>

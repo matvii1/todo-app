@@ -8,7 +8,7 @@ import { Todo } from '../types/Todo';
 import { ToggleAllButton } from './ToggleAllButton';
 import { ErrorContext } from '../context/ErrorContext';
 import { useLocalStorage } from '../hooks/useLocalStorage';
-import { FilterType } from '../types/filterType';
+import { FilterStatus } from '../types/FilterStatus';
 
 export const TodoContent = () => {
   const [searchParams] = useSearchParams();
@@ -54,21 +54,21 @@ export const TodoContent = () => {
   }
 
   const filterType = useMemo(() => {
-    return searchParams.get('filter') || FilterType.All;
+    return searchParams.get('filter') || FilterStatus.ALL;
   }, [searchParams]);
 
   useEffect(() => {
     switch (filterType) {
-      case FilterType.All:
+      case FilterStatus.ALL:
         setVisibleTodos(todos);
 
         break;
 
-      case FilterType.Completed:
+      case FilterStatus.COMPLETED:
         setVisibleTodos(todos.filter((todo: Todo) => todo.completed));
         break;
 
-      case FilterType.Active:
+      case FilterStatus.ACTIVE:
         setVisibleTodos(todos.filter((todo: Todo) => !todo.completed));
         break;
 

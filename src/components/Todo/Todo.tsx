@@ -134,7 +134,7 @@ export const TodoComponent: FC<Props> = ({
     deleteTodoHandler(id);
   };
 
-  let focusTimeout: ReturnType<typeof setTimeout> = setTimeout(() => {});
+  let focusTimeout: ReturnType<typeof setTimeout>;
 
   const handleDoubleClick = () => {
     onDoubleClick(index);
@@ -161,6 +161,7 @@ export const TodoComponent: FC<Props> = ({
       )}
       onDoubleClick={handleDoubleClick}
     >
+      {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
       <label className={classNames(
         'todo__status-label',
         { hidden: isTodoEditing && isCurrentClicked },
