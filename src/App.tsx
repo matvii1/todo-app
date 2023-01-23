@@ -1,27 +1,25 @@
-import React from 'react';
-import './App.scss';
-
-interface Props {
-  onClick: () => void;
-}
-
-export const Provider: React.FC<Props> = React.memo(
-  ({ onClick, children }) => (
-    <button
-      type="button"
-      onClick={onClick}
-    >
-      {children}
-    </button>
-  ),
-);
+import { useState } from 'react';
+import { TodoContent } from './components/TodoContent';
+import { ErrorNotification } from './components/ErrorNotification';
+import { ErrorContext } from './context/ErrorContext';
 
 export const App: React.FC = () => {
+  const [isEmptyTitleErrorShown, setIsEmptyTitleErrorShown] = useState(false);
+
+  const errorObject = {
+    isEmptyTitleErrorShown,
+    setIsEmptyTitleErrorShown,
+  };
+
   return (
-    <div className="starter">
-      <Provider onClick={() => ({})}>
-        <TodoList />
-      </Provider>
-    </div>
+    <ErrorContext.Provider
+      value={errorObject}
+    >
+      <div className="todoapp">
+        <h1 className="todoapp__title">todos</h1>
+        <TodoContent />
+        <ErrorNotification />
+      </div>
+    </ErrorContext.Provider>
   );
 };

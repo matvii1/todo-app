@@ -1,11 +1,17 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.scss';
+import { createRoot } from 'react-dom/client';
+
+import 'bulma/css/bulma.css';
+import '@fortawesome/fontawesome-free/css/all.css';
+import './styles/index.scss';
+
+import { HashRouter } from 'react-router-dom';
 import { App } from './App';
 
-ReactDOM.render(
-  <React.StrictMode>
+const Root = () => (
+  <HashRouter>
     <App />
-  </React.StrictMode>,
-  document.getElementById('root'),
+  </HashRouter>
 );
+
+createRoot(document.getElementById('root') as HTMLDivElement)
+  .render(<Root />);
